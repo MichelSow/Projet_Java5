@@ -1,4 +1,4 @@
-# Projet_Java5
+# Projet jeux olympic
 
 Introduction 
 --------------------
