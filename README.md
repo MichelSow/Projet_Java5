@@ -1,4 +1,4 @@
-# Projet jeux olympic
+# Projet jeux olympiques
 
 Introduction 
 --------------------
@@ -119,6 +119,8 @@ Dépendance utilisé
 Fonctionnalité disponible 
 ---------------------
 ! Certaines entités sont reliés entre elles, il faut donc supprimer les enfants puis les parents !  
+
+Api 1  
 
 1)
 * Recevoir une liste d'athlete qui particpe au jeux olympique
@@ -279,13 +281,55 @@ Fonctionnalité disponible
 
   http://localhost:8080/deleteTeam{19}
 
+8)
+
+* Recevoir une liste de sponsors qui sponsorise les jeux olympiques ( Via la seconde Api )
+
+  http://localhost:8081/getAllSponsors
+
+
+Api 2
+
+1) 
+
+* Recevoir une liste de sponsors qui sponsorise les jeux olympiques 
+
+  http://localhost:8081/getAllSponsors
+  
+* Ajouter un sponsor
+
+  http://localhost:8081/addSponsor
+  {
+        
+        "name": "Disney"
+        
+       
+        
+    }
+  
+* Supprimer un sponsor
+
+  http://localhost:8080/deleteSponsor{1}
+  
 Tests
 -------------------------
 
-Mots de la fin 
+Chaques Controlleur possède :  
+
+* un test unitaire ( Toutes les methodes du controlleurs sont tester )
+* un test d'intégration ( toutes les methodes du controlleurs sont également tester )
+
+Chaques service possède :
+
+* un test unitaire ( Toutes les methodes du service sont tester )
+
+Ma classe de client ( DataAccessSponsor ) possède également une classe de test
+
+Fin 
 ------------------------
 
-
+Merci beaucoup de nous avoir encadré cette année ! 
+C'était très enrichissant !
   
 
 
