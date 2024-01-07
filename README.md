@@ -72,18 +72,221 @@ Pas de relation directe avec les autres classes.
 
 Technologie Utilisé 
 ---------------------
-* Base de donneé
-PostGreSql
-Test des requetes ==> Postman  
+* Base de donneé ==> PostGreSql
+username=postgres
+password=Helb1.1
+
+* Test des requetes ==> Postman  
 
 Dépendance utilisé
 -------------------
-Lomboak ce qui permet de...
-Rest Asured ce qui permet de ....
+* Lomboak
+
+  Utilisé pour réduire le code de plomberie en Java, comme les getters, setters
+
+* PostgreSQL Driver
+
+  Le driver JDBC pour la base de données PostgreSQL
+
+* MapStruct
+
+  Un générateur de code pour les conversions entre types Java beans
+
+* Spring Boot Starter Web
+
+  Fournit tous les éléments nécessaires pour construire des applications web avec Spring, y compris RESTful applications using Spring MVC
+
+* Spring Boot Starter Data JPA
+
+  Fournit les éléments nécessaires pour utiliser Spring Data JPA avec Hibernate
+
+* Rest-Assured
+
+  Utilisé pour tester et valider les services REST en Java
+
+* Spring Boot Starter Test
+
+  Inclut les dépendances nécessaires pour tester les applications Spring Boot
+
+* Feign OkHttp
+
+  Un client HTTP qui peut être utilisé avec Feign pour effectuer des appels HTTP
+
+* Feign Jackson
+
+  Intègre Jackson pour la sérialisation et la désérialisation des objets dans les appels Feign
 
 Fonctionnalité disponible 
 ---------------------
-* Recevoir une liste d'athlete qui particpe au jeux olympique 
+! Certaines entités sont reliés entre elles, il faut donc supprimer les enfants puis les parents !  
+
+1)
+* Recevoir une liste d'athlete qui particpe au jeux olympique
+
+  http://localhost:8080/getAllAthlete
+  
+* Ajouter un athlete
+
+  http://localhost:8080/addAthlete
+  
+  {
+  
+      "name": "Michel",
+      "gender": "H",
+      "age": 20,
+      "nationality": "Belge",
+      "team_id": 19
+      "country_id": 1
+  
+  }
+  
+* Supprimer un athlete
+
+  http://localhost:8080/deleteAthlete{33}
+  
+* Rechecher un athlete
+
+  http://localhost:8080/findAthletes?age=20&gender=H
+
+2) 
+* Recevoir une liste de pays qui sont representer au jeux olympique
+
+  http://localhost:8080/getAllCountry
+  
+* Ajouter un athlete
+
+  http://localhost:8080/addCountry
+  {
+        
+        "name": "Espagne",
+       
+        
+    }
+  
+* Supprimer un athlete
+
+  http://localhost:8080/deleteCountry{1}
+
+3)
+* Recevoir une liste de Medaille qui ont été distribuer au jeux olympique
+
+  http://localhost:8080/getAllMedal
+  
+* Ajouter une medaille
+
+  http://localhost:8080/addMedal
+  {
+        
+        "type": "Bronze",
+        "athlete_id": 33,
+        "sport_id": 1,
+        "team_id": 19
+       
+        
+    }
+  
+* Supprimer une medaille
+
+  http://localhost:8080/deleteMedal{8}
+
+4) 
+* Recevoir une liste de place où se dérouleront les jeux olympique
+
+  http://localhost:8080/getAllPlace
+  
+* Ajouter une Place
+
+  http://localhost:8080/addPlace
+  {
+        
+        "adresse": "Rue des poest 19",
+        "capacity": 33000,
+        "name": "stade des martyres"
+        
+       
+        
+    }
+  
+* Supprimer une place
+
+  http://localhost:8080/deletePlace{1}
+
+
+5)
+
+* Recevoir une liste de resultat pour les épreuves au jeux olympique
+
+  http://localhost:8080/getAllResult
+  
+* Ajouter un resultat
+
+  http://localhost:8080/addResult
+  {
+        
+        "rank": 2,
+        "score": 60,
+        "athlete_id": 34,
+        "sport_id": 1,
+        "team_id": 19
+       
+        
+    }
+  
+* Supprimer un résultat
+
+  http://localhost:8080/deleteResult{9}
+
+6)
+* Recevoir une liste de sport des jeux olympique
+
+  http://localhost:8080/getAllSport
+  
+* Ajouter un Sport
+
+  http://localhost:8080/addSport
+  {
+        
+        "category": "Athlétisme",
+        "name": "Lancer de javelot"
+        
+       
+        
+  }
+  
+* Supprimer un Sport
+
+  http://localhost:8080/deleteSport{1}
+
+7)  
+
+* Recevoir une liste des équipes qui participe aux épreuves des jeux olympique
+
+  http://localhost:8080/getAllTeam
+  
+* Ajouter une team
+
+  http://localhost:8080/addTeam
+  {
+        
+        "name": "Big bros",
+        "Country_id": 1,
+        "sport_id": 1
+       
+        
+    }
+  
+* Supprimer une team
+
+  http://localhost:8080/deleteTeam{19}
+
+Tests
+-------------------------
+
+Mots de la fin 
+------------------------
+
+
+  
 
 
 
