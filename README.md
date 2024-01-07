@@ -314,11 +314,11 @@ Api 2
 
 * Rechercher un sponsor avec son ID en parametre
 
-  http://localhost:8081/sponsors/findSponsor/8
+  http://localhost:8081/sponsors/findSponsor/1
   
 * Supprimer un sponsor
 
-  http://localhost:8081/sponsors/deleteSponsor/10
+  http://localhost:8081/sponsors/deleteSponsor/2
   
 Tests
 -------------------------
