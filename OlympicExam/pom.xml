@@ -108,13 +108,13 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>1.18.30
-                            </version> <!-- Assurez-vous d'utiliser la version que vous avez définie dans vos dépendances -->
+                            </version>
                         </path>
-                        <!-- Ajoutez d'autres processeurs d'annotations si nécessaire -->
+
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <!-- Ajoutez d'autres plugins ici si nécessaire -->
+
         </plugins>
     </build>
 

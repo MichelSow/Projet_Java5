@@ -4,6 +4,7 @@ import be.helb.misow.Dao.PlaceRepository;
 import be.helb.misow.Model.Place;
 import be.helb.misow.Service.PlaceService;
 import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ public class PlaceControllerIntegrationTest {
 
     @BeforeEach
     public void setUp() {
+
         RestAssured.port = port; // Configuration de RestAssured pour utiliser le port du serveur de test
+        RestAssured.defaultParser = Parser.JSON; // Définir le parseur par défaut en cas de manque de Content-Type
     }
 
     @Test
@@ -77,4 +80,29 @@ public class PlaceControllerIntegrationTest {
                 .then()
                 .statusCode(200); // Vérification que le statut HTTP est 200 (OK)
     }
+
+
+    @Test
+    public void whenUpdatePlaceName_thenStatusIsOk() {
+        // Test pour mettre à jour le nom d'un lieu et vérifier le statut de la réponse
+        Place place = new Place("Old", "Some Address", 50000); // Création d'un nouveau lieu avec un ancien nom
+        place = placeRepository.save(place); // Sauvegarde du lieu dans la base de données
+        Long idPlace = place.getId(); // Récupération de l'ID du lieu sauvegardé
+
+        String newName = "Updated Name"; // Définir un nouveau nom pour la mise à jour
+
+        given()
+                .contentType("application/json") // Définition du type de contenu de la requête
+                .queryParam("newName", newName) // Ajout du paramètre de requête pour le nouveau nom
+                .when()
+                .patch("/updatePlaceName/" + idPlace) // Envoi d'une requête PATCH à l'endpoint
+                .then()
+                .statusCode(200);// Vérification que le statut HTTP est 200 (OK)
+
+
+
+        // Suppression du lieu après le test pour nettoyer la base de données
+        placeService.deletePlaceById(idPlace);
+    }
+
 }

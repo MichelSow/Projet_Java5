@@ -82,4 +82,20 @@ public class PlaceControllerTest {
         // Vérification que la méthode deletePlaceById du service a bien été appelée avec placeId
         verify(placeService).deletePlaceById(placeId);
     }
+
+    @Test
+    public void whenUpdatePlace_thenPlaceShouldBeUpdate() {
+        // Arrange
+        // Création d'une nouvelle place à ajouter
+        Place newPlace = new Place("New Stadium", "New Address", 70000);
+        newPlace.setId(999L);
+
+        // Act
+        // Appel de la méthode du contrôleur pour ajouter une place
+        placeController.updatePlaceName(newPlace.getId(),"new Place");
+
+        // Assert
+        // Vérification que la méthode addPlace du service a bien été appelée avec newPlace
+        verify(placeService).updatePlaceName(newPlace.getId(),"new Place");
+    }
 }

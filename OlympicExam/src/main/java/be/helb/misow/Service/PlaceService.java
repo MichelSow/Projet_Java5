@@ -36,5 +36,18 @@ public class PlaceService {
         return this.placeRepository.findAll();
     }
 
+    // Méthode pour mettre à jour le nom d'un lieu
+    public void updatePlaceName(Long id, String newName) {
+        // Trouver le lieu par son ID
+        Place place = placeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Place not found with id : " + id));
+
+        // Mettre à jour le nom du lieu
+        place.setName(newName);
+
+        // Sauvegarder le lieu mis à jour dans la base de données
+        placeRepository.save(place);
+    }
+
 
 }

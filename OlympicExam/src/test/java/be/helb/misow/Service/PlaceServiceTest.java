@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,4 +56,26 @@ public class PlaceServiceTest {
         assertEquals(expectedPlaces, actualPlaces); // Vérification que les lieux attendus et actuels sont les mêmes
         verify(placeRepository).findAll(); // Vérification que la méthode findAll du repository a été appelée
     }
+
+    @Test
+    public void testUpdatePlaceName() {
+        // Test de la méthode updatePlaceName
+        Long id = 1L; // Définir un ID de lieu pour le test
+        String newName = "NouveauNom"; // Définir un nouveau nom pour le test
+        Place place = new Place(); // Créer une nouvelle instance de Place
+        place.setId(id); // Affecter l'ID à l'instance de Place
+
+        // Configurer le mock pour retourner l'instance de Place lors de la recherche par ID
+        when(placeRepository.findById(id)).thenReturn(Optional.of(place));
+
+        placeService.updatePlaceName(id, newName); // Appeler updatePlaceName avec l'ID et le nouveau nom
+
+        // Vérifier que la méthode findById a été appelée
+        verify(placeRepository, times(1)).findById(id);
+        // Vérifier que le nom du lieu a été mis à jour
+        assert place.getName().equals(newName);
+        // Vérifier que la méthode save a été appelée pour enregistrer les changements
+        verify(placeRepository, times(1)).save(place);
+    }
+
 }

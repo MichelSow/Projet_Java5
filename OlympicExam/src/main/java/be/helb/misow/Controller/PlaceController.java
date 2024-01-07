@@ -39,5 +39,16 @@ public class PlaceController {
         this.placeService.deletePlaceById(id);
     }
 
+    // Méthode pour mettre à jour le nom d'un lieu
+    @PatchMapping("/updatePlaceName/{id}")
+    public void updatePlaceName(@PathVariable Long id, @RequestParam String newName) {
+        // Appel à PlaceService pour mettre à jour le nom du lieu avec l'ID et le nouveau nom spécifiés
+        this.placeService.updatePlaceName(id, newName);
+    }
+
+
+
+
+
 
 }
