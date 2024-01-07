@@ -23,21 +23,21 @@ public class SponsorController {
     }
 
     // Méthode pour récupérer tous les sponsors
-    @GetMapping
+    @GetMapping("/getAllSponsors")
     public ResponseEntity<List<Sponsor>> getAllSponsors() {
         List<Sponsor> sponsors = sponsorService.getAllSponsors();
         return ResponseEntity.ok(sponsors); // Retourne la liste des sponsors avec le statut 200 OK
     }
 
     // Méthode pour ajouter un nouveau sponsor
-    @PostMapping
+    @PostMapping("/addSponsor")
     public ResponseEntity<Sponsor> addSponsor(@RequestBody Sponsor sponsor) {
         Sponsor newSponsor = sponsorService.addSponsor(sponsor);
         return new ResponseEntity<>(newSponsor, HttpStatus.CREATED); // Retourne le sponsor ajouté avec le statut 201 Créé
     }
 
     // Méthode pour récupérer un sponsor par son identifiant
-    @GetMapping("/{id}")
+    @GetMapping("/findSponsor/{id}")
     public ResponseEntity<Sponsor> getSponsorById(@PathVariable Long id) {
         return sponsorService.getSponsorById(id)
                 .map(ResponseEntity::ok) // Si trouvé, retourne le sponsor avec le statut 200 OK
@@ -45,7 +45,7 @@ public class SponsorController {
     }
 
     // Méthode pour supprimer un sponsor par son identifiant
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteSponsor/{id}")
     public ResponseEntity<Void> deleteSponsor(@PathVariable Long id) {
         sponsorService.deleteSponsorById(id);
         return ResponseEntity.ok().build(); // Retourne le statut 200 OK après suppression

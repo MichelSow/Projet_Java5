@@ -19,7 +19,7 @@ public interface DataAccessSponsor {
      *
      * @return Une liste de tous les sponsors sous forme de SponsorDto.
      */
-    @RequestLine("GET /sponsors")
+    @RequestLine("GET /sponsors/getAllSponsors")
     @Headers("Content-Type: application/json")
     List<SponsorDto> getAllSponsors();
 
@@ -29,7 +29,7 @@ public interface DataAccessSponsor {
      *
      * @param sponsorDto Le DTO représentant le sponsor à ajouter.
      */
-    @RequestLine("POST /sponsors")
+    @RequestLine("POST /sponsors/addSponsor")
     @Headers("Content-Type: application/json")
     void addSponsor(SponsorDto sponsorDto);
 
@@ -39,7 +39,7 @@ public interface DataAccessSponsor {
      *
      * @param id L'identifiant du sponsor à supprimer.
      */
-    @RequestLine("DELETE /sponsors/{id}")
+    @RequestLine("DELETE /sponsors/deleteSponsor/{id}")
     @Headers("Content-Type: application/json")
     void deleteSponsor(@Param("id") Long id);
 }
