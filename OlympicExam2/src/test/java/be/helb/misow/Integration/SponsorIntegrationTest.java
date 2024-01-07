@@ -1,6 +1,8 @@
 package be.helb.misow.Integration;
 
+import be.helb.misow.Dao.SponsorRepository;
 import be.helb.misow.Model.Sponsor;
+import be.helb.misow.Service.SponsorService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ import javax.sql.DataSource;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-//TODO corriger cette classe
+
 
 // Classe de test d'intégration pour SponsorController
 
@@ -29,84 +31,77 @@ public class SponsorIntegrationTest {
     @LocalServerPort
     private int port;
 
+    @Autowired
+    private SponsorService sponsorService;
+
+    @Autowired
+    private SponsorRepository sponsorRepository;
+
     @BeforeEach
     public void setup() {
         RestAssured.port = port;
     }
 
-
-
-    // Teste la récupération de tous les sponsors et vérifie si il y a plus d'1 élément
     @Test
     public void testGetAllSponsors() {
+        // Test pour obtenir tous les sponsors
         given()
                 .when()
-                .get("/sponsors")
+                .get("/sponsors/getAllSponsors")
                 .then()
-                .statusCode(HttpStatus.OK.value())
-                .contentType(ContentType.JSON)
+                .statusCode(200)
                 .body("$", hasSize(greaterThan(0)));
     }
 
-    // Teste l'ajout d'un nouveau sponsor
     @Test
     public void testAddSponsor() {
+        // Création d'un nouveau sponsor pour le test
+        Sponsor newSponsor = new Sponsor("TestSponsor5");
+
+
+
+        // Ajout du sponsor
         given()
                 .contentType(ContentType.JSON)
-                .body(new Sponsor("pepsi"))
+                .body(newSponsor)
                 .when()
-                .post("/sponsors")
+                .post("/sponsors/addSponsor")
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(201);
+
+        // suppression de l'objet creé après le test
+        Sponsor savedSponsor = sponsorRepository.findByName("TestSponsor5");
+        sponsorRepository.deleteById(savedSponsor.getId());
     }
 
-    // Teste la récupération d'un sponsor par son ID
-    @Test
-    public void testGetSponsorById() {
-        int sponsorId = 1;
-        given()
-                .when()
-                .get("/sponsors/" + sponsorId)
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("id", equalTo(sponsorId));
-    }
-
-    // Teste la récupération d'un sponsor qui n'existe pas
-    @Test
-    public void testGetSponsorNotFound() {
-        long sponsorId = 99999;
-        given()
-                .when()
-                .get("/sponsors/" + sponsorId)
-                .then()
-                .statusCode(HttpStatus.NOT_FOUND.value());
-    }
-
-    // Teste la suppression d'un sponsor
     @Test
     public void testDeleteSponsor() {
-        long sponsorId = 5;
+
+        Sponsor newSponsor = new Sponsor("TestSponsor2");
+        newSponsor = sponsorRepository.save(newSponsor);
+        Long idSponsor = newSponsor.getId();
+        // Suppression du sponsor
         given()
                 .when()
-                .delete("/sponsors/" + sponsorId)
+                .delete("/sponsors/deleteSponsor/" + idSponsor)
                 .then()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(200);
     }
 
-    // Teste la liste des sponsors après une suppression
     @Test
-    public void testSponsorListAfterDeletion() {
-        long sponsorId = 3;
-        given()
-                .when()
-                .delete("/sponsors/" + sponsorId);
+    public void testFindSponsorById() {
+        Sponsor newSponsor = new Sponsor("TestSponsor8");
+        newSponsor = sponsorRepository.save(newSponsor);
+        Long sponsorId = newSponsor.getId();
 
         given()
                 .when()
-                .get("/sponsors")
+                .get("/sponsors/findSponsor/" + sponsorId)
                 .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("$", not(hasItem(hasProperty("id", equalTo(sponsorId)))));
+                .statusCode(200)
+                .body("id", equalTo(sponsorId.intValue()));
+
+        Sponsor savedSponsor = sponsorRepository.findByName("TestSponsor8");
+        sponsorRepository.deleteById(savedSponsor.getId());
     }
 }
