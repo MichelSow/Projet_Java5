@@ -144,7 +144,7 @@ Api 1
   
 * Supprimer un athlete
 
-  http://localhost:8080/deleteAthlete{33}
+  http://localhost:8080/deleteAthlete/33
   
 * Rechecher un athlete
 
@@ -167,7 +167,7 @@ Api 1
   
 * Supprimer un athlete
 
-  http://localhost:8080/deleteCountry{1}
+  http://localhost:8080/deleteCountry/1
 
 3)
 * Recevoir une liste de Medaille qui ont été distribuer au jeux olympique
@@ -189,7 +189,7 @@ Api 1
   
 * Supprimer une medaille
 
-  http://localhost:8080/deleteMedal{8}
+  http://localhost:8080/deleteMedal/8
 
 4) 
 * Recevoir une liste de place où se dérouleront les jeux olympique
@@ -208,10 +208,15 @@ Api 1
        
         
     }
+
+* Modifier le nom d'une place
+
+  http://localhost:8080/updatePlaceName/3?newName=Stade1
+  
   
 * Supprimer une place
 
-  http://localhost:8080/deletePlace{1}
+  http://localhost:8080/deletePlace/1
 
 
 5)
@@ -236,7 +241,7 @@ Api 1
   
 * Supprimer un résultat
 
-  http://localhost:8080/deleteResult{9}
+  http://localhost:8080/deleteResult/9
 
 6)
 * Recevoir une liste de sport des jeux olympique
@@ -257,7 +262,7 @@ Api 1
   
 * Supprimer un Sport
 
-  http://localhost:8080/deleteSport{1}
+  http://localhost:8080/deleteSport/1
 
 7)  
 
@@ -279,13 +284,13 @@ Api 1
   
 * Supprimer une team
 
-  http://localhost:8080/deleteTeam{19}
+  http://localhost:8080/deleteTeam/19
 
 8)
 
-* Recevoir une liste de sponsors qui sponsorise les jeux olympiques ( Via la seconde Api )
+* Recevoir une liste de sponsors qui sponsorise les jeux olympiques ( Via la première Api )
 
-  http://localhost:8081/getAllSponsors
+  http://localhost:8080/olympic2/getAllSponsors
 
 
 Api 2
@@ -294,25 +299,30 @@ Api 2
 
 * Recevoir une liste de sponsors qui sponsorise les jeux olympiques 
 
-  http://localhost:8081/getAllSponsors
+ http://localhost:8081/sponsors/getAllSponsors
   
 * Ajouter un sponsor
 
-  http://localhost:8081/addSponsor
+  http://localhost:8081/sponsors/addSponsor
   {
         
-        "name": "Disney"
+        "name": "sponsor 1"
         
        
         
     }
+
+* Rechercher un sponsor avec son ID en parametre
+
+  http://localhost:8081/sponsors/findSponsor/8
   
 * Supprimer un sponsor
 
-  http://localhost:8080/deleteSponsor{1}
+  http://localhost:8081/sponsors/deleteSponsor/10
   
 Tests
 -------------------------
+Api 1 Et Api 2  
 
 Chaques Controlleur possède :  
 
